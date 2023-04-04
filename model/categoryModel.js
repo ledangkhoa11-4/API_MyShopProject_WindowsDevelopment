@@ -2,12 +2,9 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const CategorySchema = new Schema({
-    Username: {type: String,              
-                required: true, 
-                unique: true},
-    Password: {type: String,              
-        required: true, 
-        unique: true},   // Password phải được hash
+    Name: {type: String,              
+        required: true},
+    Description: {type: String,}
     });
     
 let categoryModel = mongoose.model('Categories', CategorySchema,"Categories");

@@ -2,6 +2,7 @@ import _ from "./config/config.js"
 import  express from "express";
 import morgan from "morgan";
 import mongoose from "mongoose";
+import categoryRoute from "./Routes/categoryRoute.js"
 const app = express()
 
 try{
@@ -13,9 +14,16 @@ try{
   process.exit(-1)
 }
 
+app.use(morgan('dev'))
 
+app.get("/",(req,res,next)=>{
+    let obj = {
+      status: "Connect successfully"
+    }
+    res.json(obj)
+})
 
-
+app.use("/category",categoryRoute)
 
   app.listen(process.env.PORT, ()=>{
     console.log(`Server running at http://127.0.0.1:${process.env.PORT}`);
