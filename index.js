@@ -67,9 +67,9 @@ app.use("/category",categoryRoute)
 //URL: .../search/order
 
 
-//Báo cáo doanh thu và lợi nhuận theo ngày đến ngày, theo tuần, theo tháng, theo năm     
+//Báo cáo doanh thu và lợi nhuận theo ngày đến ngày, theo tuần, theo tháng, theo năm    KHOA  
 //UR: .../report
-//Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm
+//Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm    QUÂN
 
 
 
