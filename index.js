@@ -28,8 +28,22 @@ app.use("/category",categoryRoute)
   app.listen(process.env.PORT, ()=>{
     console.log(`Server running at http://127.0.0.1:${process.env.PORT}`);
 })
+//ĐĂNG NHÂP: PHƯỚC
+
+//LẤY DỮ LIỆU TỪ EXCEL: PHƯỚC 
+
+//DASHBOARD (LÀM CHO ĐẸP)
+/*
+- Có tổng cộng bao nhiêu sản phẩm đang bán         PHƯỚC       
+- Có tổng cộng bao nhiêu đơn hàng mới trong tuần / tháng    DƯƠNG
+- Liệt kê top 5 sản phẩm đang sắp hết hàng (số lượng < 5)   QUÂN
+
+-Báo cáo doanh thu và lợi nhuận theo ngày đến ngày, theo tuần, theo tháng, theo năm (vẽ biểu đồ)    KHOA
+ Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm (vẽ biểu đồ)  QUÂN
+*/
 
 
+//VỪA LÀM MÀN HÌNH VỪA LÀM NODE
 //Xem danh sách các sản phẩm theo loại sản phẩm có phân trang.    Dương
 //URL: .../search/category?tenloai
 
@@ -53,7 +67,7 @@ app.use("/category",categoryRoute)
 //URL: .../search/order
 
 
-//Báo cáo doanh thu và lợi nhuận theo ngày đến ngày, theo tuần, theo tháng, theo năm      Khoa
+//Báo cáo doanh thu và lợi nhuận theo ngày đến ngày, theo tuần, theo tháng, theo năm     
 //UR: .../report
 //Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm
 
