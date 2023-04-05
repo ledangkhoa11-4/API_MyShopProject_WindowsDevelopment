@@ -12,7 +12,13 @@ Router.get("/:id",async (req,res,next)=>{
     res.json(categories)
 })
 
-
+Router.get("/:slug",async (req,res,next)=>{      
+11
+    const categories = await categoryModel.find({});
+12
+    res.json(categories)
+13
+})
 
 
 
