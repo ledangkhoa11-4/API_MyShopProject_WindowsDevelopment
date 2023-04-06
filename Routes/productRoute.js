@@ -13,6 +13,20 @@ Router.get("/",async (req,res,next)=>{
     }  
     res.json(books)
 })
+Router.get("/image/:id",async (req,res,next)=>{
+    try{
+        let image = await productModel.find({_id:`${req.params.id}`}, 'ImageBase64').exec()
+        if(image.length > 0){
+            res.json(image[0].ImageBase64)
+        }else{
+            res.json("")
+        }
+    }catch(ex){
+        console.log(ex);
+        res.json("")
+    }
+    
+})
 Router.get("/:id",async (req,res,next)=>{      
     const categories = await productModel.find({});
     res.json(categories)
