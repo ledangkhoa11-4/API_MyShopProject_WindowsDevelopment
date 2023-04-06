@@ -4,6 +4,7 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 import categoryRoute from "./Routes/categoryRoute.js"
 import productRoute from "./Routes/productRoute.js"
+import couponRoute from "./Routes/couponRoute.js"
 const app = express()
 
 try{
@@ -16,7 +17,7 @@ try{
 }
 
 app.use(morgan('dev'))
-
+app.use(express.json())
 app.get("/",(req,res,next)=>{
     let obj = {
       status: "Connect successfully"
@@ -26,6 +27,7 @@ app.get("/",(req,res,next)=>{
 
 app.use("/category",categoryRoute)
 app.use("/product",productRoute)
+app.use("/coupon",couponRoute)
 
   app.listen(process.env.PORT, ()=>{
     console.log(`Server running at http://127.0.0.1:${process.env.PORT}`);
