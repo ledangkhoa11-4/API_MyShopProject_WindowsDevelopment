@@ -3,6 +3,7 @@ import  express from "express";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import categoryRoute from "./Routes/categoryRoute.js"
+import productRoute from "./Routes/productRoute.js"
 const app = express()
 
 try{
@@ -24,6 +25,7 @@ app.get("/",(req,res,next)=>{
 })
 
 app.use("/category",categoryRoute)
+app.use("/product",productRoute)
 
   app.listen(process.env.PORT, ()=>{
     console.log(`Server running at http://127.0.0.1:${process.env.PORT}`);

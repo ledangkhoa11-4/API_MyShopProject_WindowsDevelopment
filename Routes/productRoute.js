@@ -1,26 +1,22 @@
-import categoryModel from "../model/categoryModel.js";
+import productModel from "../model/productModel.js";
 import express from 'express'
 
 const Router = express.Router();
 
 Router.get("/",async (req,res,next)=>{
-    const categories = await categoryModel.find({});
-    res.json(categories)
+    const isBrief = (req.query.brief ==='true')
+    let books = null;
+    if(isBrief == true){
+        books = await productModel.find({}, `_id Name PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).exec();
+    }else{
+        books = await productModel.find({}).skip(0).limit(1);
+    }  
+    res.json(books)
 })
 Router.get("/:id",async (req,res,next)=>{      
-    const categories = await categoryModel.find({});
+    const categories = await productModel.find({});
     res.json(categories)
 })
-
-Router.get("/:slug",async (req,res,next)=>{      
-11
-    const categories = await categoryModel.find({});
-12
-    res.json(categories)
-13
-})
-
-
 
 export default Router;
 
