@@ -27,8 +27,6 @@ app.get("/",(req,res,next)=>{
     }
     res.json(obj)
 })
-app.use("/product",producRoute)
-
 app.use("/category",categoryRoute)
 app.use("/product",productRoute)
 app.use("/coupon",couponRoute)
