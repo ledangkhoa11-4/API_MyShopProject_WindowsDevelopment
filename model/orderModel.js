@@ -2,14 +2,27 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const OrderSchema = new Schema({
-    OrderID: {type: Number,              //ID Phải tự tăng
-                required: true, 
-                unique: true},
-    ListProduct: [Number], 
-    TotalPrice: Number,
-    Promotion: Number,
+    Customer:String, 
     PurchaseDate: Date,
-    Customer: Number
+    Coupon:{
+        type:String,
+        default:null
+    },
+    DetailCart: [{
+        Book: {
+          type: String,
+          required: true
+        },
+        QuantityBuy: {
+          type: Number,
+          required: true
+        },
+        TotalPrice: {
+          type: Number,
+          required: true
+        }
+    }],
+    TotalPriceOrder: Number,
     });
     
 let orderModel = mongoose.model('Orders', OrderSchema,"Orders");
