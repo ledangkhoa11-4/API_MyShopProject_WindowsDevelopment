@@ -33,12 +33,30 @@ Router.get("/:id",async (req,res,next)=>{
 })
 Router.post("/",async (req,res)=>{
     try{
-        const newProduct = new productModel(req.body)
-        const result = await newProduct.save()
+        const productId = req.query.id;
+        const product = await productModel.findById(productId);
+        if (!product) {
+            return res.status(404).send({ message: 'Product not found' });
+        }
+        Object.assign(product, req.body);
+
+        const result = await product.save()
         res.json(result)
     }catch(ex){
         console.log(ex);
-        res.json()
+        res.json("")
+    }
+})
+Router.post("/delete",async (req,res)=>{
+    try{
+        const productId = req.query.id;
+        const deletedProduct = await productModel.findOneAndDelete({ _id: productId });
+        if (!deletedProduct) {
+            return res.status(404).send({ message: 'Product not found' });
+        }
+    }catch(ex){
+        console.log(ex);
+        res.json("")
     }
 })
 
