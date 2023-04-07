@@ -5,12 +5,20 @@ const OrderSchema = new Schema({
     Customer:String, 
     PurchaseDate: Date,
     Coupon:{
-        type:String,
-        default:null
+        _id: {
+          type:String,
+          default:null
+        },
     },
     DetailCart: [{
         Book: {
-          type: String,
+          _id: {
+            type:String,
+            required: true
+          },
+        },
+        Price: {
+          type: Number,
           required: true
         },
         QuantityBuy: {
