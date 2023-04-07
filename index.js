@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import categoryRoute from "./Routes/categoryRoute.js"
 import productRoute from "./Routes/productRoute.js"
 import couponRoute from "./Routes/couponRoute.js"
+import accountRoute from "./Routes/accountRoute.js"
 import bodyParser from "body-parser"
 const app = express()
 
@@ -26,10 +27,12 @@ app.get("/",(req,res,next)=>{
     }
     res.json(obj)
 })
+app.use("/product",producRoute)
 
 app.use("/category",categoryRoute)
 app.use("/product",productRoute)
 app.use("/coupon",couponRoute)
+app.use("/account",accountRoute)
 
   app.listen(process.env.PORT, ()=>{
     console.log(`Server running at http://127.0.0.1:${process.env.PORT}`);
