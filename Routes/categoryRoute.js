@@ -5,7 +5,6 @@ const Router = express.Router();
 
 Router.get("/:slug",(req,res)=>{
 })
-askdagksdqwietqweugsadajks xcc
 
 export default Router;
 
