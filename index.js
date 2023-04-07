@@ -7,6 +7,7 @@ import productRoute from "./Routes/productRoute.js"
 import couponRoute from "./Routes/couponRoute.js"
 import accountRoute from "./Routes/accountRoute.js"
 import orderRoute from "./Routes/orderRoute.js"
+import bodyParser from "body-parser"
 const app = express()
 
 try{
@@ -17,7 +18,8 @@ try{
   console.log(e)
   process.exit(-1)
 }
-
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(morgan('dev'))
 app.use(express.json())
 app.get("/",(req,res,next)=>{

@@ -2,20 +2,27 @@ import accountModel from "../model/accountModel.js";
 import express from 'express'
 
 const Router = express.Router();
-
-Router.get('/:username',async(req,res,next)=>{
-    const account = await accountModel.findOne({ Username: req.params.username}).exec();
-    res.json(account)
+console.log("test");
+Router.get("/",async(req,res,next)=>{
+    try{
+        const account = await accountModel.findOne({ Username: req.query.username});
+        res.json(account)
+    }catch(ex){
+        const result = []
+        res.json(result)
+        console.log("error");
+    }
 })
 
 Router.post('/',async(req,res,next)=>{
-    var user = new accountModel({
-        Username: req.body.Username,
-        Password: req.body.Password,
-    });
-    user.save((err,doc)=>{
-        if(!err) console.log('auke')
-    })
+   try{
+        var user = new accountModel(req.body)
+        const add = await user.save()
+        res.json(add)
+   }catch(ex){
+        const result = []
+        res.json(result)
+   }
 })
 
 export default Router;
