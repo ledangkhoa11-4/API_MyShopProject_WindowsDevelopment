@@ -60,7 +60,10 @@ app.use("/order",orderRoute)
 //Cho phép thêm một loại sản phẩm, xóa một loại sản phẩm, hiệu chỉnh loại sản phẩm    Phước
 // URL: .../category/(add, del, update)/*
 
-//Cho phép thêm một sản phẩm, xóa một sản phẩm, hiệu chỉnh thông tin sản  phẩm     Quân
+//Quân
+//Cho phép thêm một sản phẩm, ✓
+//xóa một sản phẩm, ✓
+//hiệu chỉnh thông tin sản  phẩm  ✓  
 //URL: .../product/*
 
 //Cho phép tìm kiếm sản phẩm theo tên (Lọc theo giá )    Dương
