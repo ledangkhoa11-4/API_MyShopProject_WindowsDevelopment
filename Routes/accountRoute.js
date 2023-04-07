@@ -2,7 +2,7 @@ import accountModel from "../model/accountModel.js";
 import express from 'express'
 
 const Router = express.Router();
-
+console.log("test");
 Router.get("/",async(req,res,next)=>{
     try{
         const account = await accountModel.findOne({ Username: req.query.username});
