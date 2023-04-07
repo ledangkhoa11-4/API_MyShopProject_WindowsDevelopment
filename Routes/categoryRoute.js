@@ -3,13 +3,16 @@ import express from 'express'
 
 const Router = express.Router();
 
-Router.get("/",async (req,res,next)=>{
-    const categories = await categoryModel.find({});
-    res.json(categories)
+Router.get("/",async (req,res)=>{
+    try{
+        const result = await categoryModel.find({});
+        res.json(result)
+    }catch(ex){
+        const result = []
+        res.json(result)
+    }
 })
-Router.get("/:id",async (req,res,next)=>{      
-    const categories = await categoryModel.find({});
-    res.json(categories)
-})
+askdagksdqwietqweugsadajks xcc
+
 export default Router;
 

@@ -7,7 +7,7 @@ const AccountSchema = new Schema({
                 unique: true},
     Password: {type: String,              
         required: true, 
-        unique: true},   // Password phải được hash
+        },   // Password phải được hash
     });
     
 let accountModel = mongoose.model('Accounts', AccountSchema,"Accounts");
