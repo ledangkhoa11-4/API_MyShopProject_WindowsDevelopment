@@ -3,9 +3,13 @@ import express from 'express'
 
 const Router = express.Router();
 
-Router.get("/:slug",(req,res)=>{
+Router.get("/",async (req,res,next)=>{
+    const categories = await categoryModel.find({});
+    res.json(categories)
 })
-askdagksdqwietqweugsadajks xcc
-
+Router.get("/:id",async (req,res,next)=>{      
+    const categories = await categoryModel.find({});
+    res.json(categories)
+})
 export default Router;
 
