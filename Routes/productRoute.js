@@ -9,7 +9,7 @@ Router.get("/",async (req,res,next)=>{
     if(isBrief == true){
         books = await productModel.find({}, `_id Name PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).exec();
     }else{
-        books = await productModel.find({}).skip(0).limit(1);
+        books = await productModel.find({}).skip(0);
     }  
     res.json(books)
 })
@@ -30,6 +30,16 @@ Router.get("/image/:id",async (req,res,next)=>{
 Router.get("/:id",async (req,res,next)=>{      
     const categories = await productModel.find({});
     res.json(categories)
+})
+Router.post("/",async (req,res)=>{
+    try{
+        const newProduct = new productModel(req.body)
+        const result = await newProduct.save()
+        res.json(result)
+    }catch(ex){
+        console.log(ex);
+        res.json()
+    }
 })
 
 export default Router;

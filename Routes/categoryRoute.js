@@ -7,12 +7,12 @@ Router.get("/",async (req,res)=>{
     try{
         const result = await categoryModel.find({});
         res.json(result)
+        console.log(json(result));
     }catch(ex){
-        const result = []
-        res.json(result)
+        
     }
 })
-askdagksdqwietqweugsadajks xcc
+
 
 export default Router;
 

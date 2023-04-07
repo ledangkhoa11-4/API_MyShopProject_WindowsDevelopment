@@ -11,7 +11,7 @@ const ProductSchema = new Schema({
     QuantityStock: Number,
     QuantityOrder: Number,
     CatID:{
-        type: Number,
+        type: String,
         required: true
     },
     Description:String,
