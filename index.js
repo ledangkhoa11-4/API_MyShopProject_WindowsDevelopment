@@ -46,10 +46,10 @@ app.use("/order",orderRoute)
 /*
 - Có tổng cộng bao nhiêu sản phẩm đang bán         PHƯỚC       
 - Có tổng cộng bao nhiêu đơn hàng mới trong tuần / tháng    DƯƠNG
-- Liệt kê top 5 sản phẩm đang sắp hết hàng (số lượng < 5)   QUÂN
+- Liệt kê top 5 sản phẩm đang sắp hết hàng (số lượng < 5) x   QUÂN
 
 -Báo cáo doanh thu và lợi nhuận theo ngày đến ngày, theo tuần, theo tháng, theo năm (vẽ biểu đồ)    KHOA
- Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm (vẽ biểu đồ)  QUÂN
+ Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm (vẽ biểu đồ) x QUÂN
 */
 
 
@@ -64,6 +64,7 @@ app.use("/order",orderRoute)
 //Cho phép thêm một sản phẩm, ✓
 //xóa một sản phẩm, ✓
 //hiệu chỉnh thông tin sản  phẩm  ✓  
+//pagination x
 //URL: .../product/*
 
 //Cho phép tìm kiếm sản phẩm theo tên (Lọc theo giá )    Dương
@@ -72,7 +73,7 @@ app.use("/order",orderRoute)
 //- [ ]  Tạo ra các đơn hàng  Cho phép xóa một đơn hàng, cập nhật một đơn hàng  Khoa
 //URL: .../order/(create,...)
 
-//Cho phép xem danh sách các đơn hàng có phân trang, xem chi tiết một đơn hàng   Quân
+//Cho phép xem danh sách các đơn hàng có phân trang, xem chi tiết một đơn hàng x  Quân
 //URL: .../order
 //URL: .../order/:id
 
@@ -82,7 +83,7 @@ app.use("/order",orderRoute)
 
 //Báo cáo doanh thu và lợi nhuận theo ngày đến ngày, theo tuần, theo tháng, theo năm    KHOA  
 //UR: .../report
-//Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm    QUÂN
+//Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm  x  QUÂN
 
 
 

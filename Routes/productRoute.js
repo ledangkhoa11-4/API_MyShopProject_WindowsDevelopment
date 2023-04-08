@@ -5,11 +5,13 @@ const Router = express.Router();
 
 Router.get("/",async (req,res,next)=>{
     const isBrief = (req.query.brief ==='true')
+    const pageIndex = req.query.pgIdx;
+    const skip = 6*pageIndex;
     let books = null;
     if(isBrief == true){
         books = await productModel.find({}, `_id Name PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).exec();
     }else{
-        books = await productModel.find({}).skip(0).limit(3);
+        books = await productModel.find({}).skip(skip).limit(6);
     }  
     res.json(books)
 })
@@ -66,6 +68,17 @@ Router.post("/delete",async (req,res)=>{
         res.json("")
     }
 })
-
+Router.get("/count", async (req, res) =>{
+    let count = 0;
+    try { 
+        count = await productModel.countDocuments({});
+        console.log(count)
+    } catch (ex) {
+        console.log(ex);
+        res.json("")
+    }
+    console.log(count)
+    res.json(count);
+})
 export default Router;
 
