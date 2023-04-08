@@ -10,12 +10,13 @@ const ProductSchema = new Schema({
     PublishedYear: Number,
     QuantityStock: Number,
     QuantityOrder: Number,
+    IsOnStock:Boolean,
     CatID:{
         type: String,
         required: true
     },
     Description:String,
-    IsOnStock:Boolean
+   
     });
     
 let productModel = mongoose.model('Books', ProductSchema,"Books");
