@@ -3,13 +3,25 @@ import express from 'express'
 
 const Router = express.Router();
 
+Router.get("/count",async (req,res)=>{
+    try{
+         const result = await productModel.count({}).exec()
+         res.json(result);
+    }catch(er){
+
+         console.log(er)
+    }
+ })
+
 Router.get("/",async (req,res,next)=>{
     const isBrief = (req.query.brief ==='true')
+    const pageIndex = req.query.pgIdx;
+    const skip = 6*pageIndex;
     let books = null;
     if(isBrief == true){
         books = await productModel.find({}, `_id Name PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).exec();
     }else{
-        books = await productModel.find({}).skip(0).limit(3);
+        books = await productModel.find({}).skip(skip).limit(6);
     }  
     res.json(books)
 })
