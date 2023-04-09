@@ -7,9 +7,18 @@ Router.get("/",async (req,res)=>{
     try{
         const result = await categoryModel.find({});
         res.json(result)
-        console.log(json(result));
     }catch(ex){
         
+    }
+})
+
+Router.post("/", async (req,res)=>{
+    try{
+        var result = new categoryModel(req.body)
+        const add = await result.save()
+        res.json(add)
+    }catch(ex){
+        res.json([])
     }
 })
 

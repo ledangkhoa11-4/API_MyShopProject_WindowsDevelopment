@@ -10,7 +10,6 @@ Router.get("/",async(req,res,next)=>{
     }catch(ex){
         const result = []
         res.json(result)
-        console.log("error");
     }
 })
 
