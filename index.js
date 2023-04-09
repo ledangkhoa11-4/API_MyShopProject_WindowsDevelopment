@@ -57,8 +57,8 @@ app.use("/order",orderRoute)
 //Xem danh sách các sản phẩm theo loại sản phẩm có phân trang.    Dương
 //URL: .../search/category?tenloai
 
-//Cho phép thêm một loại sản phẩm, xóa một loại sản phẩm, hiệu chỉnh loại sản phẩm    Phước
-// URL: .../category/(add, del, update)/*
+//Cho phép thêm một loại sản phẩm, xóa một loại sản phẩm, hiệu chỉnh loại sản phẩm    Phước  ✓
+// URL: .../category/(add, del, update)/*  ✓
 
 //Quân
 //Cho phép thêm một sản phẩm, ✓
