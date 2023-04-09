@@ -3,6 +3,16 @@ import express from 'express'
 
 const Router = express.Router();
 
+Router.get("/count",async (req,res)=>{
+    try{
+         const result = await productModel.count({}).exec()
+         res.json(result);
+    }catch(er){
+
+         console.log(er)
+    }
+ })
+
 Router.get("/",async (req,res,next)=>{
     const isBrief = (req.query.brief ==='true')
     const pageIndex = req.query.pgIdx;
@@ -68,17 +78,6 @@ Router.post("/delete",async (req,res)=>{
         res.json("")
     }
 })
-Router.get("/count", async (req, res) =>{
-    let count = 0;
-    try { 
-        count = await productModel.countDocuments({});
-        console.log(count)
-    } catch (ex) {
-        console.log(ex);
-        res.json("")
-    }
-    console.log(count)
-    res.json(count);
-})
+
 export default Router;
 
