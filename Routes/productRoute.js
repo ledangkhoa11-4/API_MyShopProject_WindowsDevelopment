@@ -16,12 +16,12 @@ Router.get("/count",async (req,res)=>{
 Router.get("/",async (req,res,next)=>{
     const isBrief = (req.query.brief ==='true')
     const pageIndex = req.query.pgIdx;
-    const skip = 6*pageIndex;
+    const limit = req.query.limit;
     let books = null;
     if(isBrief == true){
         books = await productModel.find({}, `_id Name PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).exec();
     }else{
-        books = await productModel.find({}).skip(skip).limit(6);
+        books = await productModel.find({}).skip(pageIndex*limit).limit(limit);
     }  
     res.json(books)
 })
@@ -52,13 +52,24 @@ Router.get("/:id",async (req,res,next)=>{
 })
 Router.post("/",async (req,res)=>{
     try{
+        const product = new productModel(req.body) 
+       
+        console.log(req.body)
+        const result = await product.save()
+        res.json(result)
+    }catch(ex){
+        console.log(ex);
+        res.json("")
+    }
+})
+Router.post("/edit",async (req,res)=>{
+    try{
         const productId = req.query.id;
         const product = await productModel.findById(productId);
         if (!product) {
             return res.status(404).send({ message: 'Product not found' });
         }
         Object.assign(product, req.body);
-
         const result = await product.save()
         res.json(result)
     }catch(ex){
@@ -73,9 +84,10 @@ Router.post("/delete",async (req,res)=>{
         if (!deletedProduct) {
             return res.status(404).send({ message: 'Product not found' });
         }
+        res.json(deletedProduct);
     }catch(ex){
         console.log(ex);
-        res.json("")
+        res.json("err")
     }
 })
 

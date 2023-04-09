@@ -64,7 +64,7 @@ app.use("/order",orderRoute)
 //Cho phép thêm một sản phẩm, ✓
 //xóa một sản phẩm, ✓
 //hiệu chỉnh thông tin sản  phẩm  ✓  
-//pagination x
+//xem san pham co phan trang ✓
 //URL: .../product/*
 
 //Cho phép tìm kiếm sản phẩm theo tên (Lọc theo giá )    Dương
