@@ -8,6 +8,7 @@ import couponRoute from "./Routes/couponRoute.js"
 import accountRoute from "./Routes/accountRoute.js"
 import orderRoute from "./Routes/orderRoute.js"
 import bodyParser from "body-parser"
+import productModel from "./model/productModel.js";
 const app = express()
 
 try{
@@ -28,6 +29,7 @@ app.get("/",(req,res,next)=>{
     }
     res.json(obj)
 })
+
 
 app.use("/category",categoryRoute)
 app.use("/product",productRoute)
