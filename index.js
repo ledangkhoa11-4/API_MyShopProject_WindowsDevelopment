@@ -46,9 +46,13 @@ app.use("/order",orderRoute)
 
 //DASHBOARD (LÀM CHO ĐẸP)
 /*
-- Có tổng cộng bao nhiêu sản phẩm đang bán         PHƯỚC       
+- Có tổng cộng bao nhiêu sản phẩm đang bán         PHƯỚC    
+
 - Có tổng cộng bao nhiêu đơn hàng mới trong tuần / tháng    DƯƠNG
-- Liệt kê top 5 sản phẩm đang sắp hết hàng (số lượng < 5) x   QUÂN
+
+- Liệt kê top 5 sản phẩm đang sắp hết hàng (số lượng < 5) QUÂN
+   + API ✓   
+   + CS View x 
 
 -Báo cáo doanh thu và lợi nhuận theo ngày đến ngày, theo tuần, theo tháng, theo năm (vẽ biểu đồ)    KHOA
  Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm (vẽ biểu đồ) x QUÂN
@@ -74,9 +78,7 @@ app.use("/order",orderRoute)
 
 //- [ ]  Tạo ra các đơn hàng  Cho phép xóa một đơn hàng, cập nhật một đơn hàng  Khoa
 //URL: .../order/(create,...)
-
-//Cho phép xem danh sách các đơn hàng có phân trang, xem chi tiết một đơn hàng x  Quân
-//URL: .../order
+//Cho phép xem danh sách các đơn hàng có phân trang, xem chi tiết một đơn hàng
 //URL: .../order/:id
 
 //Tìm kiếm các đơn hàng từ ngày đến ngày      Phước

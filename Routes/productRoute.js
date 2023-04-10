@@ -31,6 +31,16 @@ Router.get("/",async (req,res,next)=>{
     }
     
 })
+Router.get("/get/outstock",async (req,res,next)=>{
+    try{
+        let books = null;
+        books = await productModel.find({}, `_id Name CatID PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).sort({ quantity: 1 }).limit(5);
+        res.json(books)
+    }catch(er){
+        console.log(er);
+        res.json([])
+    }
+})
 Router.get("/image/:id",async (req,res,next)=>{
     try{
         let image = await productModel.find({_id:`${req.params.id}`}, 'ImageBase64').exec()
