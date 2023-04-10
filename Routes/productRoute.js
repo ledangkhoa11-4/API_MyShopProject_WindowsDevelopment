@@ -20,9 +20,9 @@ Router.get("/",async (req,res,next)=>{
         const limit = req.query.limit;
         let books = null;
         if(isBrief == true){
-            books = await productModel.find({}, `_id Name PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).exec();
+            books = await productModel.find({}, `_id Name CatID PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).exec();
         }else{
-            books = await productModel.find({}).skip(pageIndex*limit).limit(limit);
+            books = await productModel.find({}, `_id Name CatID PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).skip(pageIndex*limit).limit(limit);
         }  
         res.json(books)
     }catch(er){

@@ -80,5 +80,16 @@ Router.post("/update/:id",async (req,res)=>{
         res.json()
     }
 })
+Router.get("/delete/:id",async (req,res)=>{
+    try{
+        const id = req.params.id
+         const result = await orderModel.deleteOne({_id:id})
+         console.log(result)
+         res.json(result);
+    }catch(er){
+         console.log(er)
+         res.json();
+    }
+ })
 export default Router;
 
