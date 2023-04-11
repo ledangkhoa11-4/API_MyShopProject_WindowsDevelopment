@@ -54,12 +54,12 @@ Router.post("/update/:id",async (req,res)=>{
         for(let cart of result.DetailCart){
             let bookId = cart.Book._id;
             let oldStockObj = await productModel.findOne({_id:bookId},'QuantityStock QuantityOrder');
-            let newStock = oldStockObj.QuantityStock  + cart.QuantityBuy
-            let newOrder = oldStockObj.QuantityOrder - cart.QuantityBuy
-            console.log(newStock)
-            console.log(newOrder)
-            let IsOnStock = newStock > 0
-            await productModel.updateOne({_id:bookId},{QuantityStock:newStock, QuantityOrder: newOrder, IsOnStock:IsOnStock})
+            if(oldStockObj != null){
+                let newStock = oldStockObj.QuantityStock  + cart.QuantityBuy
+                let newOrder = oldStockObj.QuantityOrder - cart.QuantityBuy
+                let IsOnStock = newStock > 0
+                await productModel.updateOne({_id:bookId},{QuantityStock:newStock, QuantityOrder: newOrder, IsOnStock:IsOnStock})
+            }
          }
 
         //Trừ sản phẩm đơn mới
@@ -69,8 +69,6 @@ Router.post("/update/:id",async (req,res)=>{
             let oldStockObj = await productModel.findOne({_id:bookId},'QuantityStock QuantityOrder');
             let rollBackStock = oldStockObj.QuantityStock - cart.QuantityBuy
             let rollBackOrder= oldStockObj.QuantityOrder + cart.QuantityBuy
-            console.log(rollBackStock)
-            console.log(rollBackOrder)
             let IsOnStock = rollBackStock > 0
             await productModel.updateOne({_id:bookId},{QuantityStock:rollBackStock, QuantityOrder: rollBackOrder, IsOnStock:IsOnStock})
         }

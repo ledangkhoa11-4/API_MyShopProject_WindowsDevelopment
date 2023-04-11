@@ -37,9 +37,9 @@ app.use("/coupon",couponRoute)
 app.use("/account",accountRoute)
 app.use("/order",orderRoute)
 
-  app.listen(process.env.PORT, ()=>{
-    console.log(`Server running at http://127.0.0.1:${process.env.PORT}`);
-})
+app.listen(process.env.PORT || 3000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
 //ĐĂNG NHÂP: PHƯỚC ✓
 
 //LẤY DỮ LIỆU TỪ EXCEL/ACCESS: DƯƠNG
