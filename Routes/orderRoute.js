@@ -12,7 +12,7 @@ Router.get("/",async (req,res)=>{
         const result = await orderModel.find({}).skip(offset).limit(limit)
         res.json(result);
    }catch(er){
-        console.log(ex)
+        console.log(er)
    }
 })
 Router.get("/count",async (req,res)=>{
@@ -21,6 +21,7 @@ Router.get("/count",async (req,res)=>{
          res.json(result);
     }catch(er){
          console.log(0)
+         res.json(0);
     }
  })
 Router.post("/",async (req,res)=>{
@@ -30,10 +31,12 @@ Router.post("/",async (req,res)=>{
         
         for(let cart of result.DetailCart){
             let bookId = cart.Book._id;
-            let oldStockObj = await productModel.findOne({_id:bookId},'QuantityStock');
+            let oldStockObj = await productModel.findOne({_id:bookId},'QuantityStock QuantityOrder');
+            console.log(oldStockObj)
             let newStock = oldStockObj.QuantityStock - cart.QuantityBuy
+            let newOrder = oldStockObj.QuantityOrder + cart.QuantityBuy
             let IsOnStock = newStock > 0
-            await productModel.updateOne({_id:bookId},{QuantityStock:newStock, QuantityOrder: cart.QuantityBuy, IsOnStock:IsOnStock})
+            await productModel.updateOne({_id:bookId},{QuantityStock:newStock, QuantityOrder: newOrder, IsOnStock:IsOnStock})
         }
         let id = result._id.toString();
         id = id.replaceAll('"','"')
@@ -46,31 +49,45 @@ Router.post("/",async (req,res)=>{
 Router.post("/update/:id",async (req,res)=>{
     try{
         let result = await orderModel.findByIdAndUpdate({_id:req.params.id},req.body)
-        // let cartBefore = req.body.DetailCart;
-        // for(let cart of result.DetailCart){
-        //     let bookId = cart.Book._id;
-        //     let oldStockObj = await productModel.findOne({_id:bookId},'QuantityStock');
+        
+        //hoàn sp đơn cũ
+        for(let cart of result.DetailCart){
+            let bookId = cart.Book._id;
+            let oldStockObj = await productModel.findOne({_id:bookId},'QuantityStock QuantityOrder');
+            if(oldStockObj != null){
+                let newStock = oldStockObj.QuantityStock  + cart.QuantityBuy
+                let newOrder = oldStockObj.QuantityOrder - cart.QuantityBuy
+                let IsOnStock = newStock > 0
+                await productModel.updateOne({_id:bookId},{QuantityStock:newStock, QuantityOrder: newOrder, IsOnStock:IsOnStock})
+            }
+         }
 
-        //     let afterQuantityBuy = 0;
-        //     for(let cart2 of cartBefore){
-        //         console.log(cart2.Book._id)
-        //         if(cart2.Book._id == bookId){
-        //             beforeQuantityBuy = cart2.QuantityBuy
-        //             break
-        //         }  
-        //     }
-        //     console.log(oldStockObj.QuantityStock)
-        //     console.log(beforeQuantityBuy)
-        //     console.log(cart.QuantityBuy)
-        //     let newStock = oldStockObj.QuantityStock + (beforeQuantityBuy - cart.QuantityBuy)
-        //     let IsOnStock = newStock > 0
-        //     await productModel.updateOne({_id:bookId},{QuantityStock:newStock, QuantityOrder: cart.QuantityBuy, IsOnStock:IsOnStock})
-        // }
+        //Trừ sản phẩm đơn mới
+        let afterCart = req.body.DetailCart
+        for(let cart of afterCart){
+            let bookId = cart.Book._id
+            let oldStockObj = await productModel.findOne({_id:bookId},'QuantityStock QuantityOrder');
+            let rollBackStock = oldStockObj.QuantityStock - cart.QuantityBuy
+            let rollBackOrder= oldStockObj.QuantityOrder + cart.QuantityBuy
+            let IsOnStock = rollBackStock > 0
+            await productModel.updateOne({_id:bookId},{QuantityStock:rollBackStock, QuantityOrder: rollBackOrder, IsOnStock:IsOnStock})
+        }
         res.json(result)
     }catch(ex){
         console.log(ex);
         res.json()
     }
 })
+Router.get("/delete/:id",async (req,res)=>{
+    try{
+        const id = req.params.id
+         const result = await orderModel.deleteOne({_id:id})
+         console.log(result)
+         res.json(result);
+    }catch(er){
+         console.log(er)
+         res.json();
+    }
+ })
 export default Router;
 

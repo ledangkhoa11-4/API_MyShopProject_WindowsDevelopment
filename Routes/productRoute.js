@@ -32,16 +32,32 @@ Router.get("/stock",async (req,res)=>{
 
 
 Router.get("/",async (req,res,next)=>{
-    const isBrief = (req.query.brief ==='true')
-    const pageIndex = req.query.pgIdx;
-    const limit = req.query.limit;
-    let books = null;
-    if(isBrief == true){
-        books = await productModel.find({}, `_id Name PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).exec();
-    }else{
-        books = await productModel.find({}).skip(pageIndex*limit).limit(limit);
-    }  
-    res.json(books)
+    try{
+        const isBrief = (req.query.brief ==='true')
+        const pageIndex = req.query.pgIdx;
+        const limit = req.query.limit;
+        let books = null;
+        if(isBrief == true){
+            books = await productModel.find({}, `_id Name CatID PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).exec();
+        }else{
+            books = await productModel.find({}, `_id Name CatID PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).skip(pageIndex*limit).limit(limit);
+        }  
+        res.json(books)
+    }catch(er){
+        console.log(er);
+        res.json([])
+    }
+    
+})
+Router.get("/get/outstock",async (req,res,next)=>{
+    try{
+        let books = null;
+        books = await productModel.find({}, `_id Name CatID PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).sort({ quantity: 1 }).limit(5);
+        res.json(books)
+    }catch(er){
+        console.log(er);
+        res.json([])
+    }
 })
 Router.get("/image/:id",async (req,res,next)=>{
     try{
@@ -58,7 +74,7 @@ Router.get("/image/:id",async (req,res,next)=>{
     
 })
 Router.get("/:id",async (req,res,next)=>{  
-    const isBrief = (req.query.brief ==='true')
+    const isBrief = (req.query.brief ==='True' || req.query.brief ==='true')
     if(isBrief == true){
         const book = await productModel.find({_id: req.params.id}, `_id Name PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).exec();
         res.json(book[0]);
