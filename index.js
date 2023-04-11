@@ -7,6 +7,7 @@ import productRoute from "./Routes/productRoute.js"
 import couponRoute from "./Routes/couponRoute.js"
 import accountRoute from "./Routes/accountRoute.js"
 import orderRoute from "./Routes/orderRoute.js"
+import searchRoute from "./Routes/searchRoute.js"
 import bodyParser from "body-parser"
 const app = express()
 
@@ -34,6 +35,7 @@ app.use("/product",productRoute)
 app.use("/coupon",couponRoute)
 app.use("/account",accountRoute)
 app.use("/order",orderRoute)
+app.use("/search",searchRoute)
 
   app.listen(process.env.PORT, ()=>{
     console.log(`Server running at http://127.0.0.1:${process.env.PORT}`);
