@@ -7,6 +7,7 @@ import productRoute from "./Routes/productRoute.js"
 import couponRoute from "./Routes/couponRoute.js"
 import accountRoute from "./Routes/accountRoute.js"
 import orderRoute from "./Routes/orderRoute.js"
+import searchRoute from "./Routes/searchRoute.js"
 import bodyParser from "body-parser"
 import productModel from "./model/productModel.js";
 const app = express()
@@ -36,6 +37,7 @@ app.use("/product",productRoute)
 app.use("/coupon",couponRoute)
 app.use("/account",accountRoute)
 app.use("/order",orderRoute)
+app.use("/search",searchRoute)
 
 app.listen(process.env.PORT || 3000, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
