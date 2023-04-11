@@ -11,7 +11,25 @@ Router.get("/count",async (req,res)=>{
 
          console.log(er)
     }
+})
+
+Router.get("/stock",async (req,res)=>{
+    try{
+        const result = await productModel.aggregate([
+            {
+              $group: {
+                _id: null,
+                totalQty: { $sum: '$QuantityStock' },
+              },
+            },
+        ]);
+        res.json(result[0])
+    }catch(er){
+        console.log(er)
+        res.json([])
+    }
  })
+
 
 Router.get("/",async (req,res,next)=>{
     const isBrief = (req.query.brief ==='true')
@@ -90,6 +108,8 @@ Router.post("/delete",async (req,res)=>{
         res.json("err")
     }
 })
+
+
 
 export default Router;
 
