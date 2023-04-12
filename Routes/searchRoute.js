@@ -21,9 +21,17 @@ Router.get("/category", async (req,res)=>{
     }
     
     console.log(pricestart+ " " + priceend);
-    var bookjson=await productModel.find({ CatID: { $in: catIDList }, PurchasePrice: { $gte: pricestart, $lte: priceend } }).exec()
-    console.log(bookjson);
-    res.json(bookjson)
+    if(catIDList>0){
+        var bookjson=await productModel.find({ CatID: { $in: catIDList }, PurchasePrice: { $gte: pricestart, $lte: priceend } }).exec()
+        console.log(bookjson);
+        res.json(bookjson)
+    }
+    else{
+        var bookjson=await productModel.find({ PurchasePrice: { $gte: pricestart, $lte: priceend } }).exec()
+        console.log(bookjson);
+        res.json(bookjson)
+    }
+    
 }
     catch(error){
         console.log(error);
