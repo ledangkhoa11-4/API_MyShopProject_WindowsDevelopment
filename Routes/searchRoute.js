@@ -6,7 +6,8 @@ const Router=express.Router();
 
 Router.get("/category", async (req,res)=>{
     var content=req.query.cats
-    
+    var pricestart=parseInt( req.query.pricestart)
+    var priceend=parseInt(req.query.priceend)
     try{
         const mycontent=content.split(",")
         mycontent.pop()
@@ -19,9 +20,9 @@ Router.get("/category", async (req,res)=>{
         }
     }
     
-    console.log(catIDList);
-    var bookjson=await productModel.find({ CatID: { $in: catIDList } })
-    
+    console.log(pricestart+ " " + priceend);
+    var bookjson=await productModel.find({ CatID: { $in: catIDList }, PurchasePrice: { $gte: pricestart, $lte: priceend } }).exec()
+    console.log(bookjson);
     res.json(bookjson)
 }
     catch(error){
