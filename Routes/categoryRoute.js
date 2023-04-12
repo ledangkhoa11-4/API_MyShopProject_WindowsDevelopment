@@ -17,6 +17,15 @@ Router.get("/",async (req,res)=>{
     }
 })
 
+Router.get("/newestId",async (req,res)=>{
+    try{
+        var result = await categoryModel.find().limit(1).sort({$natural:-1}) 
+        res.json(result[0])
+    }catch(ex){
+        res.json([])
+    }
+})
+
 Router.post("/", async (req,res)=>{
     try{
         

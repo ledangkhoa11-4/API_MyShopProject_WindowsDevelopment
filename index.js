@@ -38,7 +38,7 @@ app.use("/account",accountRoute)
 app.use("/order",orderRoute)
 
 app.listen(process.env.PORT || 3000, function(){
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+  console.log("Express server listening on port http://127.0.0.1:%d in %s mode", this.address().port, app.settings.env);
 });
 //ĐĂNG NHÂP: PHƯỚC ✓
 
