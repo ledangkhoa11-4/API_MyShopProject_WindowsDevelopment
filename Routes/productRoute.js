@@ -30,7 +30,6 @@ Router.get("/stock",async (req,res)=>{
     }
  })
 
-
 Router.get("/",async (req,res,next)=>{
     try{
         const isBrief = (req.query.brief ==='true')
@@ -40,8 +39,8 @@ Router.get("/",async (req,res,next)=>{
         if(isBrief == true){
             books = await productModel.find({}, `_id Name CatID PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).exec();
         }else{
-            books = await productModel.find({}, `_id Name CatID PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).skip(pageIndex*limit).limit(limit);
-        }  
+            books = await productModel.find({}, `_id Name CatID PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).skip(pageIndex*limit).limit(limit);  
+        } 
         res.json(books)
     }catch(er){
         console.log(er);
