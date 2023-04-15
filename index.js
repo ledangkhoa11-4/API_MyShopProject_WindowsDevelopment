@@ -31,7 +31,6 @@ app.get("/",(req,res,next)=>{
     res.json(obj)
 })
 
-
 app.use("/category",categoryRoute)
 app.use("/product",productRoute)
 app.use("/coupon",couponRoute)
@@ -40,7 +39,7 @@ app.use("/order",orderRoute)
 app.use("/search",searchRoute)
 
 app.listen(process.env.PORT || 3000, function(){
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+  console.log("Express server listening on port http://127.0.0.1:%d in %s mode", this.address().port, app.settings.env);
 });
 //ĐĂNG NHÂP: PHƯỚC ✓
 

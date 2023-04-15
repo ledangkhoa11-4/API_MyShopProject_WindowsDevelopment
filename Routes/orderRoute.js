@@ -46,6 +46,24 @@ Router.post("/",async (req,res)=>{
         res.json()
     }
 })
+Router.get("/search",async (req,res)=>{
+    try{
+        const limit = req.query.limit || 6
+        const offset = req.query.offset || 0
+        const result = await orderModel.find({"PurchaseDate": {"$gte":req.query.start + "T00:00:00.000Z","$lt":req.query.end + "T23:59:59.999Z"}}).skip(offset).limit(limit)
+        res.json(result);
+    }catch(er){
+        res.json([]);
+    }
+})
+Router.get("/filtercount",async (req,res)=>{
+    try{
+        const result = await orderModel.count({"PurchaseDate": {"$gte":req.query.start + "T00:00:00.000Z","$lt":req.query.end + "T23:59:59.999Z"}})
+        res.json(result);
+    }catch(er){
+        res.json(0);
+    }
+})
 Router.post("/update/:id",async (req,res)=>{
     try{
         let result = await orderModel.findByIdAndUpdate({_id:req.params.id},req.body)
