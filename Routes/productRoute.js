@@ -88,7 +88,6 @@ Router.post("/",async (req,res)=>{
     try{
         const product = new productModel(req.body) 
        
-        console.log(req.body)
         const result = await product.save()
         res.json(result)
     }catch(ex){
