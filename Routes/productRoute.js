@@ -13,7 +13,7 @@ Router.get("/count",async (req,res)=>{
          console.log(er)
     }
 })
-
+  
 Router.get("/stock",async (req,res)=>{
     try{
         const result = await productModel.aggregate([
@@ -200,6 +200,7 @@ Router.post("/delete",async (req,res)=>{
     }
 })
 
+  
 
 Router.get("/",async (req,res,next)=>{
     try{
@@ -221,4 +222,3 @@ Router.get("/",async (req,res,next)=>{
 })
 
 export default Router;
-
