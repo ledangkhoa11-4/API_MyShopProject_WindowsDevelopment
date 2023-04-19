@@ -67,16 +67,22 @@ Router.get("/category", async (req,res)=>{
     console.log(catIDList)
     if(catIDList.length>0 && priceend!=pricestart){
         
-        var bookjson=await productModel.find({ CatID: { $in: catIDList }, PurchasePrice: { $gte: pricestart, $lte: priceend } }).skip(pageIndex*limit).limit(limit)
+        var bookjson=await productModel.find({ CatID: { $in: catIDList }, PurchasePrice: { $gte: pricestart, $lte: priceend } },
+            `_id Name CatID PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear Description`)
+            .skip(pageIndex*limit).limit(limit)
         res.json(bookjson)
     }
     else if(catIDList.length>0 && priceend===pricestart){
-        var bookjson=await productModel.find({ CatID: { $in: catIDList } }).skip(pageIndex*limit).limit(limit)
+        var bookjson=await productModel.find({ CatID: { $in: catIDList } },
+            `_id Name CatID PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear Description`)
+            .skip(pageIndex*limit).limit(limit)
         console.log("cc2");
         res.json(bookjson)
     }
     else {
-        var bookjson=await productModel.find({ PurchasePrice: { $gte: pricestart, $lte: priceend } }).skip(pageIndex*limit).limit(limit)
+        var bookjson=await productModel.find({ PurchasePrice: { $gte: pricestart, $lte: priceend } },
+            `_id Name CatID PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear Description`)
+            .skip(pageIndex*limit).limit(limit)
         console.log("cc3");
         res.json(bookjson)
     }
@@ -86,6 +92,28 @@ Router.get("/category", async (req,res)=>{
         console.log(error);
     }
 })
+Router.get("/product/count",async (req,res)=>{
+    var content=req.query.content
+    var pricestart=parseInt( req.query.pricestart)
+    var priceend=parseInt(req.query.priceend)
+    
+    if(priceend!=pricestart){
+        var bookjson=await productModel.count({
+            Name: {$regex: '.*' + content + '.*'},
+            PurchasePrice: { $gte: pricestart, $lte: priceend }
+        })
+        console.log("cc")
+        res.json(bookjson)
+    }
+    else{
+        var bookjson=await productModel.count({
+            Name: {$regex: '.*' + content + '.*'}
+        })
+        console.log(bookjson)
+        res.json(bookjson)
+    }
+    
+})
 Router.get("/product",async (req,res)=>{
     var content=req.query.content
     var pricestart=parseInt( req.query.pricestart)
@@ -93,18 +121,20 @@ Router.get("/product",async (req,res)=>{
     var pageIndex=parseInt(req.query.pageIndex)
     var limit=parseInt(req.query.limit)
     console.log(content);
-    if(priceend==pricestart){
+    if(priceend!=pricestart){
         var bookjson=await productModel.find({
-            Name: {$regex: '.*' + content + '.*',$options:"i"},
+            Name: {$regex: '.*' + content + '.*'},
             PurchasePrice: { $gte: pricestart, $lte: priceend }
-        }).skip(pageIndex*limit).limit(limit)
+        },`_id Name CatID PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear Description`)
+        .skip(pageIndex*limit).limit(limit)
         console.log(bookjson.length)
         res.json(bookjson)
     }
     else{
         var bookjson=await productModel.find({
-            Name: {$regex: '.*' + content + '.*',$options:"i"}
-        }).skip(pageIndex*limit).limit(limit)
+            Name: {$regex: '.*' + content + '.*'}
+        },`_id Name CatID PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear Description`)
+        .skip(pageIndex*limit).limit(limit)
         console.log(bookjson.length)
         res.json(bookjson)
     }
