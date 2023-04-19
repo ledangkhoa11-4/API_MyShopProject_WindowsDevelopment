@@ -62,7 +62,7 @@ app.listen(process.env.PORT || 3000, function(){
 
 
 //VỪA LÀM MÀN HÌNH VỪA LÀM NODE
-//Xem danh sách các sản phẩm theo loại sản phẩm có phân trang.    Dương
+//Xem danh sách các sản phẩm theo loại sản phẩm có phân trang.    Dương ✓ 
 //URL: .../search/category?tenloai
 
 //Cho phép thêm một loại sản phẩm, xóa một loại sản phẩm, hiệu chỉnh loại sản phẩm    Phước  ✓
@@ -75,7 +75,7 @@ app.listen(process.env.PORT || 3000, function(){
 //xem san pham co phan trang ✓
 //URL: .../product/*
 
-//Cho phép tìm kiếm sản phẩm theo tên (Lọc theo giá )    Dương
+//Cho phép tìm kiếm sản phẩm theo tên (Lọc theo giá )    Dương  ✓ 
 //URL: .../search/product?tensp?filter
 
 //- [ ]  Tạo ra các đơn hàng  Cho phép xóa một đơn hàng, cập nhật một đơn hàng  Khoa

@@ -67,8 +67,7 @@ Router.get("/category", async (req,res)=>{
     console.log(catIDList)
     if(catIDList.length>0 && priceend!=pricestart){
         
-        var bookjson=await productModel.find({ CatID: { $in: catIDList }, PurchasePrice: { $gte: pricestart, $lte: priceend } }).exec()
-        console.log("cc1");
+        var bookjson=await productModel.find({ CatID: { $in: catIDList }, PurchasePrice: { $gte: pricestart, $lte: priceend } }).skip(pageIndex*limit).limit(limit)
         res.json(bookjson)
     }
     else if(catIDList.length>0 && priceend===pricestart){
@@ -77,7 +76,7 @@ Router.get("/category", async (req,res)=>{
         res.json(bookjson)
     }
     else {
-        var bookjson=await productModel.find({ PurchasePrice: { $gte: pricestart, $lte: priceend } }).exec()
+        var bookjson=await productModel.find({ PurchasePrice: { $gte: pricestart, $lte: priceend } }).skip(pageIndex*limit).limit(limit)
         console.log("cc3");
         res.json(bookjson)
     }
@@ -86,6 +85,30 @@ Router.get("/category", async (req,res)=>{
     catch(error){
         console.log(error);
     }
+})
+Router.get("/product",async (req,res)=>{
+    var content=req.query.content
+    var pricestart=parseInt( req.query.pricestart)
+    var priceend=parseInt(req.query.priceend)
+    var pageIndex=parseInt(req.query.pageIndex)
+    var limit=parseInt(req.query.limit)
+    console.log(content);
+    if(priceend==pricestart){
+        var bookjson=await productModel.find({
+            Name: {$regex: '.*' + content + '.*',$options:"i"},
+            PurchasePrice: { $gte: pricestart, $lte: priceend }
+        }).skip(pageIndex*limit).limit(limit)
+        console.log(bookjson.length)
+        res.json(bookjson)
+    }
+    else{
+        var bookjson=await productModel.find({
+            Name: {$regex: '.*' + content + '.*',$options:"i"}
+        }).skip(pageIndex*limit).limit(limit)
+        console.log(bookjson.length)
+        res.json(bookjson)
+    }
+    
 })
 
 export default Router;
