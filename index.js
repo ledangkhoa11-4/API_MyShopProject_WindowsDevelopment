@@ -50,7 +50,7 @@ app.listen(process.env.PORT || 3000, function(){
 //DASHBOARD (LÀM CHO ĐẸP)
 /*
 - Có tổng cộng bao nhiêu sản phẩm đang bán         PHƯỚC      ✓ 
-- Có tổng cộng bao nhiêu đơn hàng mới trong tuần / tháng    DƯƠNG
+- Có tổng cộng bao nhiêu đơn hàng mới trong tuần / tháng    DƯƠNG ✓ 
 
 - Liệt kê top 5 sản phẩm đang sắp hết hàng (số lượng < 5) QUÂN
    + API ✓   

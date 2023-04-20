@@ -107,5 +107,29 @@ Router.get("/delete/:id",async (req,res)=>{
          res.json();
     }
  })
+ Router.get("/count/month",async(req,res)=>{
+    const currentDateTime = new Date();
+    
+    console.log("Current datetime:", );
+    var result= await orderModel.count({
+        $expr: {$eq: [{ $month: '$PurchaseDate' }, currentDateTime.getMonth()+1]}
+})
+    res.json(result)
+    
+ })
+ Router.get("/count/week",async(req,res)=>{
+    const currentDate = new Date();
+    const currentDay = currentDate.getDay(); // 0 (Sunday) to 6 (Saturday)
+    const daysToSunday = currentDay === 0 ? 0 : 7 - currentDay; // Number of days from current day to Sunday
+    const daysToSaturday = 6 - currentDay; // Number of days from current day to Saturday
+
+    const startOfWeek = new Date(currentDate.getTime() - (daysToSunday * 24 * 60 * 60 * 1000));
+    const endOfWeek = new Date(currentDate.getTime() + (daysToSaturday * 24 * 60 * 60 * 1000));
+    
+    console.log("Current datetime:", );
+    var result= await orderModel.count({ PurchaseDate: { $gte: startOfWeek, $lt: endOfWeek } })
+    res.json(result)
+    
+ })
 export default Router;
 
