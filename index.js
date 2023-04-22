@@ -45,7 +45,7 @@ app.listen(process.env.PORT || 3000, function(){
 });
 //ĐĂNG NHÂP: PHƯỚC ✓
 
-//LẤY DỮ LIỆU TỪ EXCEL/ACCESS: DƯƠNG
+//LẤY DỮ LIỆU TỪ EXCEL/ACCESS: DƯƠNG ✓
 
 //DASHBOARD (LÀM CHO ĐẸP)
 /*
