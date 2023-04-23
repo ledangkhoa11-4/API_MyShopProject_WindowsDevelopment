@@ -95,7 +95,7 @@ Router.get("/stock",async (req,res)=>{
         res.json(resultReturn);
     }catch(ex){
         console.log(ex);
-        res.json("")
+        res.json([])
     }
 })
 

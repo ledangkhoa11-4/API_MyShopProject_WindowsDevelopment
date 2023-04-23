@@ -126,7 +126,7 @@ Router.get("/delete/:id",async (req,res)=>{
     const startOfWeek = new Date(currentDate.getTime() - (daysToSunday * 24 * 60 * 60 * 1000));
     const endOfWeek = new Date(currentDate.getTime() + (daysToSaturday * 24 * 60 * 60 * 1000));
     
-    console.log("Current datetime:", );
+    console.log(startOfWeek, endOfWeek );
     var result= await orderModel.count({ PurchaseDate: { $gte: startOfWeek, $lt: endOfWeek } })
     res.json(result)
     
