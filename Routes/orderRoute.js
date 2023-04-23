@@ -118,16 +118,22 @@ Router.get("/delete/:id",async (req,res)=>{
     
  })
  Router.get("/count/week",async(req,res)=>{
-    const currentDate = new Date();
+    const currentDate = new Date("April, 17,2023");
     const currentDay = currentDate.getDay(); // 0 (Sunday) to 6 (Saturday)
-    const daysToSunday = currentDay === 0 ? 0 : 7 - currentDay; // Number of days from current day to Sunday
+    console.log(currentDay);
+    const daysToSunday = currentDay ; // Number of days from current day to Sunday
     const daysToSaturday = 6 - currentDay; // Number of days from current day to Saturday
 
-    const startOfWeek = new Date(currentDate.getTime() - (daysToSunday * 24 * 60 * 60 * 1000));
-    const endOfWeek = new Date(currentDate.getTime() + (daysToSaturday * 24 * 60 * 60 * 1000));
-    
-    console.log(startOfWeek, endOfWeek );
-    var result= await orderModel.count({ PurchaseDate: { $gte: startOfWeek, $lt: endOfWeek } })
+
+    const startOfWeek = new Date(currentDate);
+    startOfWeek.setHours(0, 0, 0, 0);
+    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+
+    const endOfWeek = new Date(currentDate);
+    endOfWeek.setHours(23, 59, 59, 999);
+    endOfWeek.setDate(endOfWeek.getDate() + (6 - endOfWeek.getDay()));
+    console.log(startOfWeek.getDate()+" "+endOfWeek.getDate());
+    var result= await orderModel.count({ PurchaseDate: { $gte: startOfWeek , $lt: endOfWeek } })
     res.json(result)
     
  })

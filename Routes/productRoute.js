@@ -44,6 +44,7 @@ Router.get("/stock",async (req,res)=>{
         if(filterby == 'week'){
             today = today.toISOString().slice(0, 10);
             let weekday = getWeekDates(today)
+            
             cartAtTime = await orderModel.find({
                 PurchaseDate: {
                     $gte: weekday.start + "T00:00:00.000Z",
@@ -104,11 +105,14 @@ function getWeekDates(dateString) {
     const startOfWeek = new Date(date);
     startOfWeek.setDate(date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1));
     startOfWeek.setHours(0, 0, 0, 0);
+    startOfWeek.setTime(startOfWeek.getTime() + (7 * 60 * 60 * 1000))
     const endOfWeek = new Date(date);
-    endOfWeek.setDate(date.getDate() - date.getDay() + 7);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
     endOfWeek.setHours(23, 59, 59, 999);
     const startDateString = startOfWeek.toISOString().slice(0, 10);
     const endDateString = endOfWeek.toISOString().slice(0, 10);
+    console.log(startDateString)
+    console.log(endDateString)
     return { start: startDateString, end: endDateString };
 }
 function getFirstAndLastDayOfMonth(date) {

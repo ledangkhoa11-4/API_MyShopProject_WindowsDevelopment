@@ -55,5 +55,57 @@ Router.get('/sales', async (req, res) => {
       res.status(500).json({ message: 'Server error' });
     }
   });
+
+Router.get("/statistic/day", async (req, res)=>{
+  let bookid = req.query.id
+  let startDay = req.query.start //+ "T00:00:00.000Z"
+  let endDate = req.query.end //"T23:59:59.999Z"
+  let result = []
+  let numday = calculateDaysBetweenDates(startDay, endDate)
+  for(let i = 0; i <=numday; i++ ){
+    let day = addDay(startDay,i)
+
+    let carts = await orderModel.find({
+      'DetailCart.Book._id': bookid,
+      PurchaseDate:{
+        $gte: day + "T00:00:00.000Z",
+        $lte: day + "T23:59:59.999Z"
+      }
+    }, 'DetailCart.QuantityBuy DetailCart.Book._id').exec()
+
+    let totalBuyPerDay = 0
+    if(carts.length != 0){
+      for(let cart of carts){
+        for(let detailCart of cart.DetailCart){
+           if(detailCart.Book._id == bookid) {
+            totalBuyPerDay += detailCart.QuantityBuy
+           }
+        }
+      }
+    }
+    const item = {
+      category: day,
+      quantitySelling: totalBuyPerDay
+    }
+      result.push(item)
+  }
+  res.json(result)
+})
   
+function addDay(inputDate, i) {
+  let date = new Date(inputDate);
+  date.setDate(date.getDate() + i);
+  let year = date.getFullYear();
+  let month = String(date.getMonth() + 1).padStart(2, "0");
+  let day = String(date.getDate()).padStart(2, "0");
+  let result = `${year}-${month}-${day}`;
+  return result;
+}
+function calculateDaysBetweenDates(dayA, dayB) {
+  let dateA = new Date(dayA);
+  let dateB = new Date(dayB);
+  let timeDifference = dateB - dateA;
+  let daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  return daysDifference;
+}
 export default Router;
