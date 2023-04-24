@@ -118,7 +118,7 @@ Router.get("/delete/:id",async (req,res)=>{
     
  })
  Router.get("/count/week",async(req,res)=>{
-    const currentDate = new Date("April, 17,2023");
+    const currentDate = new Date();
     const currentDay = currentDate.getDay(); // 0 (Sunday) to 6 (Saturday)
     console.log(currentDay);
     const daysToSunday = currentDay ; // Number of days from current day to Sunday

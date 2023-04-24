@@ -116,6 +116,7 @@ Router.get("/product/count",async (req,res)=>{
 })
 Router.get("/product",async (req,res)=>{
     var content=req.query.content
+    var regexFindString=new RegExp(/.*content.*/i)
     var pricestart=parseInt( req.query.pricestart)
     var priceend=parseInt(req.query.priceend)
     var pageIndex=parseInt(req.query.pageIndex)
@@ -123,7 +124,7 @@ Router.get("/product",async (req,res)=>{
     console.log(content);
     if(priceend!=pricestart){
         var bookjson=await productModel.find({
-            Name: {$regex: '.*' + content + '.*'},
+            Name: {$regex: new RegExp(".*" + content.toLowerCase()+".*", "i")},
             PurchasePrice: { $gte: pricestart, $lte: priceend }
         },`_id Name CatID PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear Description`)
         .skip(pageIndex*limit).limit(limit)
@@ -132,7 +133,7 @@ Router.get("/product",async (req,res)=>{
     }
     else{
         var bookjson=await productModel.find({
-            Name: {$regex: '.*' + content + '.*'}
+            Name: {$regex: new RegExp(".*" + content.toLowerCase()+".*", "i")}
         },`_id Name CatID PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear Description`)
         .skip(pageIndex*limit).limit(limit)
         console.log(bookjson.length)
