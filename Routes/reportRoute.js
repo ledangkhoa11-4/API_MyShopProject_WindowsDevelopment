@@ -39,7 +39,43 @@ Router.get('/profit/day', async (req, res) => {
   }
   res.json(result)
 });
-
+Router.get("/profit/month", async (req, res)=>{
+  let month = +req.query.month-1
+  let year = +req.query.year
+  let dateMonth = getFirstAndLastDayOfMonth(year, month)
+  let result = []
+  for(let week = 1 ; week <= 4; week++){
+    let startWeek = addDay(dateMonth.start, 7*(week-1));
+    let endWeek =  addDay(startWeek, 6);
+    if(week == 4)
+      endWeek = dateMonth.end
+      let carts = await orderModel.find({
+        PurchaseDate:{
+          $gte: startWeek + "T00:00:00.000Z",
+          $lte: endWeek + "T23:59:59.999Z"
+        }
+      }, 'DetailCart.QuantityBuy DetailCart.Book._id').exec()
+  
+      let totalSelling = 0
+      let totalPurchase = 0
+      if(carts.length != 0){
+        for(let cart of carts){
+          for(let detailCart of cart.DetailCart){
+            let product = await productModel.findById({_id: detailCart.Book._id})
+            totalSelling += detailCart.QuantityBuy * product.SellingPrice
+            totalPurchase += detailCart.QuantityBuy * product.PurchasePrice
+          }
+        }
+      }
+      let totalProfit = totalSelling - totalPurchase
+      const item = {
+        time: "Week " + week,
+        profit: totalProfit
+      }
+        result.push(item)
+  }
+  res.json(result)
+})
 Router.get("/statistic/day", async (req, res)=>{
   let bookid = req.query.id
   let startDay = req.query.start //+ "T00:00:00.000Z"
