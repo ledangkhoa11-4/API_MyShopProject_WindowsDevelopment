@@ -10,6 +10,7 @@ import orderRoute from "./Routes/orderRoute.js"
 import searchRoute from "./Routes/searchRoute.js"
 import bodyParser from "body-parser"
 import productModel from "./model/productModel.js";
+import reportRoute from "./Routes/reportRoute.js"
 const app = express()
 
 try{
@@ -31,25 +32,25 @@ app.get("/",(req,res,next)=>{
     res.json(obj)
 })
 
-
 app.use("/category",categoryRoute)
 app.use("/product",productRoute)
 app.use("/coupon",couponRoute)
 app.use("/account",accountRoute)
 app.use("/order",orderRoute)
 app.use("/search",searchRoute)
+app.use("/report",reportRoute)
 
 app.listen(process.env.PORT || 3000, function(){
   console.log("Express server listening on port http://127.0.0.1:%d in %s mode", this.address().port, app.settings.env);
 });
 //ĐĂNG NHÂP: PHƯỚC ✓
 
-//LẤY DỮ LIỆU TỪ EXCEL/ACCESS: DƯƠNG
+//LẤY DỮ LIỆU TỪ EXCEL/ACCESS: DƯƠNG ✓
 
 //DASHBOARD (LÀM CHO ĐẸP)
 /*
 - Có tổng cộng bao nhiêu sản phẩm đang bán         PHƯỚC      ✓ 
-- Có tổng cộng bao nhiêu đơn hàng mới trong tuần / tháng    DƯƠNG
+- Có tổng cộng bao nhiêu đơn hàng mới trong tuần / tháng    DƯƠNG ✓ 
 
 - Liệt kê top 5 sản phẩm đang sắp hết hàng (số lượng < 5) QUÂN
    + API ✓   
@@ -61,7 +62,7 @@ app.listen(process.env.PORT || 3000, function(){
 
 
 //VỪA LÀM MÀN HÌNH VỪA LÀM NODE
-//Xem danh sách các sản phẩm theo loại sản phẩm có phân trang.    Dương
+//Xem danh sách các sản phẩm theo loại sản phẩm có phân trang.    Dương ✓ 
 //URL: .../search/category?tenloai
 
 //Cho phép thêm một loại sản phẩm, xóa một loại sản phẩm, hiệu chỉnh loại sản phẩm    Phước  ✓
@@ -74,7 +75,7 @@ app.listen(process.env.PORT || 3000, function(){
 //xem san pham co phan trang ✓
 //URL: .../product/*
 
-//Cho phép tìm kiếm sản phẩm theo tên (Lọc theo giá )    Dương
+//Cho phép tìm kiếm sản phẩm theo tên (Lọc theo giá )    Dương  ✓ 
 //URL: .../search/product?tensp?filter
 
 //- [ ]  Tạo ra các đơn hàng  Cho phép xóa một đơn hàng, cập nhật một đơn hàng  Khoa
@@ -88,7 +89,11 @@ app.listen(process.env.PORT || 3000, function(){
 
 //Báo cáo doanh thu và lợi nhuận theo ngày đến ngày, theo tuần, theo tháng, theo năm    KHOA  
 //UR: .../report
-//Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm  x  QUÂN
+
+//QUÂN
+//Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm  
+//api :✓
+//ui :x
 
 
 

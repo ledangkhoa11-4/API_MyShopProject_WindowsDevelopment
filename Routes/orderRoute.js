@@ -50,7 +50,7 @@ Router.get("/search",async (req,res)=>{
     try{
         const limit = req.query.limit || 6
         const offset = req.query.offset || 0
-        const result = await orderModel.find({"PurchaseDate": {"$gte":req.query.start + "T24:00:00.000Z","$lt":req.query.end + "T24:00:00.000Z"}}).skip(offset).limit(limit)
+        const result = await orderModel.find({"PurchaseDate": {"$gte":req.query.start + "T00:00:00.000Z","$lt":req.query.end + "T23:59:59.999Z"}}).skip(offset).limit(limit)
         res.json(result);
     }catch(er){
         res.json([]);
@@ -58,7 +58,7 @@ Router.get("/search",async (req,res)=>{
 })
 Router.get("/filtercount",async (req,res)=>{
     try{
-        const result = await orderModel.count({"PurchaseDate": {"$gte":req.query.start + "T24:00:00.000Z","$lt":req.query.end + "T24:00:00.000Z"}})
+        const result = await orderModel.count({"PurchaseDate": {"$gte":req.query.start + "T00:00:00.000Z","$lt":req.query.end + "T23:59:59.999Z"}})
         res.json(result);
     }catch(er){
         res.json(0);
@@ -106,6 +106,36 @@ Router.get("/delete/:id",async (req,res)=>{
          console.log(er)
          res.json();
     }
+ })
+ Router.get("/count/month",async(req,res)=>{
+    const currentDateTime = new Date();
+    
+    console.log("Current datetime:", );
+    var result= await orderModel.count({
+        $expr: {$eq: [{ $month: '$PurchaseDate' }, currentDateTime.getMonth()+1]}
+})
+    res.json(result)
+    
+ })
+ Router.get("/count/week",async(req,res)=>{
+    const currentDate = new Date("April, 17,2023");
+    const currentDay = currentDate.getDay(); // 0 (Sunday) to 6 (Saturday)
+    console.log(currentDay);
+    const daysToSunday = currentDay ; // Number of days from current day to Sunday
+    const daysToSaturday = 6 - currentDay; // Number of days from current day to Saturday
+
+
+    const startOfWeek = new Date(currentDate);
+    startOfWeek.setHours(0, 0, 0, 0);
+    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+
+    const endOfWeek = new Date(currentDate);
+    endOfWeek.setHours(23, 59, 59, 999);
+    endOfWeek.setDate(endOfWeek.getDate() + (6 - endOfWeek.getDay()));
+    console.log(startOfWeek.getDate()+" "+endOfWeek.getDate());
+    var result= await orderModel.count({ PurchaseDate: { $gte: startOfWeek , $lt: endOfWeek } })
+    res.json(result)
+    
  })
 export default Router;
 
