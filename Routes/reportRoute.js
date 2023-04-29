@@ -149,6 +149,39 @@ Router.get("/statistic/month", async (req, res)=>{
   }
   res.json(result)
 })
+Router.get("/statistic/year", async (req, res)=>{
+  let bookid = req.query.id
+  let year = +req.query.year
+  let result = []
+  for(let month = 0; month < 12; month++){
+    let dateMonth = getFirstAndLastDayOfMonth(year, month)
+
+    let carts = await orderModel.find({
+      'DetailCart.Book._id': bookid,
+      PurchaseDate:{
+        $gte: dateMonth.start + "T00:00:00.000Z",
+        $lte: dateMonth.end + "T23:59:59.999Z"
+      }
+    }, 'DetailCart.QuantityBuy DetailCart.Book._id').exec()
+    let totalBuyPerDay = 0
+      if(carts.length != 0){
+        for(let cart of carts){
+          for(let detailCart of cart.DetailCart){
+             if(detailCart.Book._id == bookid) {
+              totalBuyPerDay += detailCart.QuantityBuy
+             }
+          }
+        }
+      }
+      const item = {
+        category: "Month " + (month+1),
+        quantitySelling: totalBuyPerDay
+      }
+        result.push(item)
+
+  }
+  res.json(result)
+})
 
 function addDay(inputDate, i) {
   let date = new Date(inputDate);
