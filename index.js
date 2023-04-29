@@ -83,7 +83,7 @@ app.listen(process.env.PORT || 3000, function(){
 //Cho phép xem danh sách các đơn hàng có phân trang, xem chi tiết một đơn hàng
 //URL: .../order/:id
 
-//Tìm kiếm các đơn hàng từ ngày đến ngày      Phước
+//Tìm kiếm các đơn hàng từ ngày đến ngày Phước ✓
 //URL: .../search/order
 
 
