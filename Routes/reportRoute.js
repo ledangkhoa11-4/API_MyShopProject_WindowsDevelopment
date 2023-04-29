@@ -102,7 +102,7 @@ Router.get("/statistic/month", async (req, res)=>{
     let startWeek = addDay(dateMonth.start, 7*(week-1));
     let endWeek =  addDay(startWeek, 6);
     if(week == 4)
-      endWeek = dateMonth.end
+      endWeek = dateMonth.end 
       let carts = await orderModel.find({
         'DetailCart.Book._id': bookid,
         PurchaseDate:{
