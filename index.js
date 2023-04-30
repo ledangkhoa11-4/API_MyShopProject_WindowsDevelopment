@@ -53,11 +53,9 @@ app.listen(process.env.PORT || 3000, function(){
 - Có tổng cộng bao nhiêu đơn hàng mới trong tuần / tháng    DƯƠNG ✓ 
 
 - Liệt kê top 5 sản phẩm đang sắp hết hàng (số lượng < 5) QUÂN
-   + API ✓   
-   + CS View x 
 
--Báo cáo doanh thu và lợi nhuận theo ngày đến ngày, theo tuần, theo tháng, theo năm (vẽ biểu đồ)    KHOA
- Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm (vẽ biểu đồ) x QUÂN
+-Báo cáo doanh thu và lợi nhuận theo ngày đến ngày, theo tuần, theo tháng, theo năm (vẽ biểu đồ)    QUÂN
+ Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm (vẽ biểu đồ)   KHOA
 */
 
 
@@ -93,7 +91,7 @@ app.listen(process.env.PORT || 3000, function(){
 //QUÂN
 //Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm  
 //api :✓
-//ui :x
+//ui :✓
 
 
 

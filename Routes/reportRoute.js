@@ -76,6 +76,39 @@ Router.get("/profit/month", async (req, res)=>{
   }
   res.json(result)
 })
+Router.get("/profit/year", async (req, res)=>{
+  let year = +req.query.year
+  let result = []
+  for(let month = 0; month < 12; month++){
+    let dateMonth = getFirstAndLastDayOfMonth(year, month)
+
+    let carts = await orderModel.find({
+      PurchaseDate:{
+        $gte: dateMonth.start + "T00:00:00.000Z",
+        $lte: dateMonth.end + "T23:59:59.999Z"
+      }
+    }, 'DetailCart.QuantityBuy DetailCart.Book._id').exec()
+      
+    let totalSelling = 0
+    let totalPurchase = 0
+    if(carts.length != 0){
+      for(let cart of carts){
+        for(let detailCart of cart.DetailCart){
+          let product = await productModel.findById({_id: detailCart.Book._id})
+          totalSelling += detailCart.QuantityBuy * product.SellingPrice
+          totalPurchase += detailCart.QuantityBuy * product.PurchasePrice
+        }
+      }
+    }
+    let totalProfit = totalSelling - totalPurchase
+    const item = {
+      time: "Month " + (month+1),
+      profit: totalProfit
+    }
+      result.push(item)
+  }
+  res.json(result)
+})
 Router.get("/statistic/day", async (req, res)=>{
   let bookid = req.query.id
   let startDay = req.query.start //+ "T00:00:00.000Z"
