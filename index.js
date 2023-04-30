@@ -95,6 +95,7 @@ app.listen(process.env.PORT || 3000, function(){
 //api :✓
 //ui :x
 
+//Cho phép khi chạy chương trình lên thì mở lại màn hình cuối mà lần trước tắt  Phước ✓
 
 
 

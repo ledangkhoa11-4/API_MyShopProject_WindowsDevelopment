@@ -8,7 +8,11 @@ const AccountSchema = new Schema({
     Password: {type: String,              
         required: true, 
         },   // Password phải được hash
+    Salt: {type: String,
+        required: true,
+        },
     });
+    
     
 let accountModel = mongoose.model('Accounts', AccountSchema,"Accounts");
 
