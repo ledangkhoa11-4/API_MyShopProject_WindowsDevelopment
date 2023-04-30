@@ -32,7 +32,15 @@ Router.get("/stock",async (req,res)=>{
         res.json([])
     }
  })
-
+ Router.get("/low-stock",async (req,res)=>{
+    try{
+        const result = await productModel.find({ QuantityStock: { $lt: 10 }},`_id Name PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).exec();
+        res.json(result)
+    }catch(er){
+        console.log(er)
+        res.json(aa)
+    }
+ })
  Router.get("/best-sale",async (req,res)=>{
     try{
         let filterby = req.query.filterby

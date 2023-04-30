@@ -54,7 +54,7 @@ app.listen(process.env.PORT || 3000, function(){
 
 - Liệt kê top 5 sản phẩm đang sắp hết hàng (số lượng < 5) QUÂN
 
--Báo cáo doanh thu và lợi nhuận theo ngày đến ngày, theo tuần, theo tháng, theo năm (vẽ biểu đồ)    QUÂN
+-Báo cáo doanh thu và lợi nhuận theo ngày đến ngày, theo tuần, theo tháng, theo năm (vẽ biểu đồ)    QUÂN ✓
  Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm (vẽ biểu đồ)   KHOA
 */
 
@@ -76,7 +76,7 @@ app.listen(process.env.PORT || 3000, function(){
 //Cho phép tìm kiếm sản phẩm theo tên (Lọc theo giá )    Dương  ✓ 
 //URL: .../search/product?tensp?filter
 
-//- [ ]  Tạo ra các đơn hàng  Cho phép xóa một đơn hàng, cập nhật một đơn hàng  Khoa
+//- [ ]  Tạo ra các đơn hàng  Cho phép xóa một đơn hàng, cập nhật một đơn hàng  Khoa ✓
 //URL: .../order/(create,...)
 //Cho phép xem danh sách các đơn hàng có phân trang, xem chi tiết một đơn hàng
 //URL: .../order/:id
@@ -85,13 +85,11 @@ app.listen(process.env.PORT || 3000, function(){
 //URL: .../search/order
 
 
-//Báo cáo doanh thu và lợi nhuận theo ngày đến ngày, theo tuần, theo tháng, theo năm    KHOA  
+//Báo cáo doanh thu và lợi nhuận theo ngày đến ngày, theo tuần, theo tháng, theo năm    Quân  ✓
 //UR: .../report
 
 //QUÂN
-//Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm  
-//api :✓
-//ui :✓
+//Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm   Khoa ✓
 
 
 
