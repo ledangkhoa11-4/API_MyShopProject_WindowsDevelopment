@@ -8,7 +8,10 @@ const AccountSchema = new Schema({
     Password: {type: String,              
         required: true, 
         },   // Password phải được hash
-    Salt: {type: String,
+    Key: {type: String,
+        required: true,
+        },
+    IV: {type: String,
         required: true,
         },
     });
