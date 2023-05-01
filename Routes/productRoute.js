@@ -162,15 +162,18 @@ Router.get("/image/:id",async (req,res,next)=>{
     
 })
 Router.get("/:id",async (req,res,next)=>{  
-    const isBrief = (req.query.brief ==='True' || req.query.brief ==='true')
-    if(isBrief == true){
-        const book = await productModel.find({_id: req.params.id}, `_id Name PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).exec();
-        res.json(book[0]);
-    }   else{
-        const categories = await productModel.find({});
-        res.json(categories)
+    try{
+        const isBrief = (req.query.brief ==='True' || req.query.brief ==='true')
+        if(isBrief == true){
+            const book = await productModel.find({_id: req.params.id}, `_id Name PurchasePrice SellingPrice Author QuantityStock QuantityOrder IsOnStock PublishedYear`).exec();
+            res.json(book[0]);
+        }   else{
+            const categories = await productModel.find({});
+            res.json(categories)
+        } 
+    }catch(ex){
+        res.json()
     } 
-   
 })
 Router.post("/",async (req,res)=>{
     try{

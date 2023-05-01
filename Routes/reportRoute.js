@@ -215,7 +215,44 @@ Router.get("/statistic/year", async (req, res)=>{
   }
   res.json(result)
 })
+Router.get("/distribution", async (req, res)=>{
+  let allOrders = await orderModel.find({}, "DetailCart.Book._id DetailCart.TotalPrice TotalPriceOrder").sort({'TotalPriceOrder':"desc"}).exec()
+  let bookRevenue = {};
+  let totalRevenue = 0;
 
+  for(let order of allOrders){
+      for(let cart of order.DetailCart){
+        if(!bookRevenue[cart.Book._id] )
+          bookRevenue[cart.Book._id] = cart.TotalPrice
+        else
+        bookRevenue[cart.Book._id] += cart.TotalPrice
+        totalRevenue+=cart.TotalPrice
+      }
+  }
+  const sortedRevenue = Object.fromEntries(
+    Object.entries(bookRevenue).sort(([, a], [, b]) => -a + b)
+)
+  let result = []
+  let numBookDistribute = 4;
+  let remainPercent = 100;
+  for(let id of Object.keys(sortedRevenue)){
+    let percent = roundHalf(bookRevenue[id]*100/totalRevenue)
+    const distribute = {
+      category: id,
+      quantitySelling: percent
+    }
+    remainPercent -= percent
+    result.push(distribute)
+    if(result.length>=numBookDistribute){
+      result.push({
+        category: "Others",
+        quantitySelling: remainPercent
+      })
+      break
+    }
+  }
+  res.json(result)
+})
 function addDay(inputDate, i) {
   let date = new Date(inputDate);
   date.setDate(date.getDate() + i);
@@ -243,5 +280,9 @@ function getDaysInMonth(year, month) {
 }
 function pad(d) {
   return (d < 10) ? '0' + d.toString() : d.toString();
+}
+function roundHalf(num) {
+  if(num == Infinity) return 0
+  return Math.round(num*2)/2;
 }
 export default Router;
