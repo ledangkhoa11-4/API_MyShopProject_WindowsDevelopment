@@ -15,9 +15,12 @@ Router.get("/",async (req,res)=>{
 Router.post("/",async (req,res)=>{
     try{
         delete(req.body.DateAdd)
+        delete(req.body._id)
         const newCoupon = new couponModel(req.body)
         const result = await newCoupon.save()
-        res.json(result)
+        let id = result._id.toString();
+        id = id.replaceAll('"','"')
+        res.json(id)
     }catch(ex){
         console.log(ex);
         res.json()
